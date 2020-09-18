@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TrashStoreRequest;
+use App\Http\Requests\TrashUpdateRequest;
 use Carbon\Carbon;
 use App\TrashReports;
+use App\Areas;
 
 class TrashController extends Controller
 {
@@ -28,22 +31,21 @@ class TrashController extends Controller
     public function create()
     {
         $date = Carbon::parse(Carbon::now())->format('Y-m-d');
-        return view('reportes.desechos.create',['date'=>$date]);  
+        return view('reportes.desechos.create',['date'=>$date, 'areports' => Areas::all()]);  
 
     }
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TrashStoreRequest $request)
     {
         $trash = new TrashReports();
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
-
+        
         $trash->area_report = $request->area;
         $trash->date = $date;
         $trash->quantity = intval($request->quantity);
@@ -62,7 +64,7 @@ class TrashController extends Controller
      */
     public function show($id)
     {
-        return view('reportes.desechos.show',[   'treports'=> TrashReports::findOrFail($id)]);
+        return view('reportes.desechos.show',[ 'treports'=> TrashReports::findOrFail($id), 'areports' => Areas::all()]);
     }
 
     /**
@@ -73,7 +75,8 @@ class TrashController extends Controller
      */
     public function edit($id)
     {
-        return view('reportes.desechos.edit',[   'treports'=> TrashReports::findOrFail($id)]);
+        
+        return view('reportes.desechos.edit',[ 'treports'=> TrashReports::findOrFail($id)]);
 
     }
 
@@ -84,7 +87,8 @@ class TrashController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    
+    public function update(TrashUpdateRequest $request, $id)
     {
         $trash = TrashReports::findOrFail($id);
 

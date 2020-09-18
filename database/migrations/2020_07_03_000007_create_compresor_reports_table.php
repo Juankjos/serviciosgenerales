@@ -21,7 +21,7 @@ class CreateCompresorReportsTable extends Migration
             $table->date('date');
             $table->decimal('oil_level');
             $table->decimal('temperature');
-            $table->longText('observations');
+            $table->longText('observations')->nullable();
             $table->unsignedBigInteger('user_report');
             $table->timestamps();
 

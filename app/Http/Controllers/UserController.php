@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         if($request){
             $query = trim($request->get('search'));
-            $users = User::where('name','LIKE','%'.$query.'%')->orderBy('id','asc')->paginate(5);
+            $users = User::where('name','LIKE','%'.$query.'%')->orWhere('email','LIKE','%'.$query.'%')->orderBy('id','asc')->paginate(10);
             return view('usuarios.index',['users'=> $users, 'search' => $query]);
         }else{
             $users = User::all();

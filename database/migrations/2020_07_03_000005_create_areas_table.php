@@ -18,7 +18,7 @@ class CreateAreasTable extends Migration
 
             $table->bigIncrements('id');
             $table->string('label');
-            $table->unsignedBigInteger('responsable');
+            $table->unsignedBigInteger('responsable')->nullable();
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@
               <th scope="col">Cantidad</th>
               <th scope="col">Usuario</th>
 
-              <th scope="col">Opciones</th>
+              <th data-card-footer scope="col">Opciones</th>
             </tr>
           </thead>
           <tbody>
@@ -23,8 +23,8 @@
             @foreach($treports as $treport)
                 <tr>
 
-                <th scope="row">{{$treport->id}}</th>
-                <th></th>
+                <td scope="row">{{$treport->id}}</td>
+                <td>{{$treport ->date }}</td>
                 <td>{{$treport->area_report}}</td>
                 <td>{{$treport->quantity}}</td>
                 <td>{{$treport->user_report}}</td>
@@ -32,6 +32,7 @@
 
                     <td>
                     <form action="{{route('desechos.destroy', $treport->id )}}" method="POST">
+                        <a href="#"><button type="button" class="btn btn-warning"><i class="fas fa-print"></i></button></a>
                       <a href="{{route('desechos.show', $treport->id )}}"><button type="button" class="btn btn-info"><i class="far fa-eye" alt="Submit"></i></button></a>
                       <a href="{{route('desechos.edit', $treport->id )}}"><button type="button" class="btn btn-success"><i class="far fa-edit"></i></button></a>
                       @csrf

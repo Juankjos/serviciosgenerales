@@ -37,6 +37,8 @@
             </div>
             <div class="card-footer text-muted">
             <p class="text-left">Reporte de: {{$creport->date}}</p>
+            <p class="text-left">Nombre: {{$ureport->name}}</p>
+            <p class="text-left">ID: {{$creport->id}}</p>
             </div>
           </div>
 

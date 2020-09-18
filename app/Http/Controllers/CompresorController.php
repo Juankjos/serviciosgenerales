@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CompresorStoreRequest;
+use App\Http\Requests\CompresorUpdateRequest;
 use Carbon\Carbon;
 use App\CompresorReports;
+use App\User;
 
 class CompresorController extends Controller
 {
@@ -38,7 +41,7 @@ class CompresorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompresorStoreRequest $request)
     {
 
         $compresor = new CompresorReports();
@@ -64,7 +67,9 @@ class CompresorController extends Controller
      */
     public function show($id)
     {
-        return view('reportes.compresor.show',[   'creport'=> CompresorReports::findOrFail($id)]);
+        $compresor = CompresorReports::findOrFail($id);
+        $user = User::findOrFail($compresor->user_report);
+        return view('reportes.compresor.show',[  'creport'=> $compresor , 'ureport'=> $user ]);
     }
 
     /**
@@ -85,7 +90,7 @@ class CompresorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CompresorUpdateRequest $request, $id)
     {
 
         $compresor = CompresorReports::findOrFail($id);
@@ -96,7 +101,7 @@ class CompresorController extends Controller
 
         $compresor->update();
 
-        return redirect('/reportes/compresor');
+        return redirect('reportes/compresor');
     }
 
     /**
@@ -108,9 +113,17 @@ class CompresorController extends Controller
     public function destroy($id)
     {
         $creport = CompresorReports::findOrFail($id);
-
         $creport->delete();
-
         return redirect('/reportes/compresor');
     }
+
+    public function pdf($id){
+    
+        $compresor = CompresorReports::findOrFail($id);
+        $user = User::findOrFail($compresor->user_report);
+        
+        $pdf = \PDF::loadView('/reportes/compresor/pdf', compact('compresor','user'));
+        return $pdf->stream('compresorReport');
+    }
+
 }

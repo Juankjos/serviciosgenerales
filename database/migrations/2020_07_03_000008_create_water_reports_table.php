@@ -31,7 +31,7 @@ class CreateWaterReportsTable extends Migration
             $table->decimal('cloration');
             $table->decimal('consumption');
             $table->decimal('consumption_total');
-            $table->longText('Observations');
+            $table->longText('Observations')->nullable();
             $table->unsignedBigInteger('user_report');
             $table->timestamps();
 

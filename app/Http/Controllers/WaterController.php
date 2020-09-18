@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\WaterStoreRequest;
+use App\Http\Requests\WaterUpdateRequest;
 use Carbon\Carbon;
 use App\WaterReports;
 
@@ -13,6 +15,8 @@ class WaterController extends Controller
  *
  * @return \Illuminate\Http\Response
  */
+
+ 
 public function index(Request $request)
 {
 
@@ -40,7 +44,10 @@ return view('reportes.agua.create',['date'=>$date]);
  * @param  \Illuminate\Http\Request  $request
  * @return \Illuminate\Http\Response
  */
-public function store(Request $request)
+
+
+
+public function store(WaterStoreRequest $request)
 {
 $water = new WaterReports();
 
@@ -92,7 +99,9 @@ return view('reportes.agua.edit',['wreport'=> WaterReports::findOrFail($id)]);
  * @param  int  $id
  * @return \Illuminate\Http\Response
  */
-public function update(Request $request, $id)
+
+
+public function update(WaterUpdateRequest $request, $id)
 {
 $water = WaterReports::findOrFail($id);
 
