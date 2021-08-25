@@ -216,7 +216,7 @@
                             data-accordion="false">
 
                             <li class="nav-item">
-                                <a href="/" class="{{ Request::path() === '/' ? 'nav-link active' : 'nav-link' }}">
+                                <a href="{{ url('/') }}" class="{{ Request::path() === '/' ? 'nav-link active' : 'nav-link' }}">
                                     <i class="nav-icon fas fa-home"></i>
                                     <p>Inicio</p>
                                 </a>

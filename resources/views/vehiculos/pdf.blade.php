@@ -38,8 +38,8 @@
                 </tr>
                 <tr>
                     <td>{{ $vehiclereport->date_start }}</td>
-                    <td>{{ $vehiclereport->date_end }}</td>
                     <td>{{ $vehiclereport->hour_start }}</td>
+                    <td>{{ $vehiclereport->date_end }}</td>
                     <td>{{ $vehiclereport->hour_end }}</td>
                 </tr>
             </tbody>
