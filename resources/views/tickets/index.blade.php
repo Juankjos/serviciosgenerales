@@ -52,12 +52,25 @@
                 <div class="col-sm-12 col-md-2">
                     
                     <a href="{{ url('tickets/create') }}">
-                        <button type="button" class="btn btn-succes float-right">Crear nuevo</button>
+                        <button type="button" class="btn btn-success float-right">Crear nuevo</button>
                     </a>
                                         
                 </div>
             </div>
 
+            <table class="table table-hover" style="border: solid 1px black">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" class="text-center" style="width: 120px">Fecha de Creación</th>
+                        <th scope="col" style="width: 120px">Fecha de Expiración</th>
+                        <th scope="col" style="width: 150px">Asignado a</th>
+                        <th scope="col">Reporte</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col" style="width: 110px">Código de Usuario</th>
+                        <th scope="col" class="text-center" style="width: 210px" data-card-footer scope="col-xs-2">Opciones</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
     <!---End--->
