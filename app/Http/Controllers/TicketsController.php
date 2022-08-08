@@ -148,34 +148,31 @@ class TicketsController extends Controller
         return $pdf->stream('ticketreport');
     }
 
-    public function panel(){
+        public function panel(){
         
 //SELECT date , COUNT(type) as Open FROM ticket_reports WHERE type = 'Abierto' GROUP BY date;
 //SELECT DATE(updated_at) as date, COUNT(type) as Close FROM ticket_reports WHERE type = 'Cerrado' GROUP BY DATE(updated_at);
 
-        $tickets_open = DB::table('ticket_reports')
-        ->selectRaw('date')
-        ->selectRaw('COUNT(type) AS Open')
-        ->whereType('Abierto')
-        ->groupBy('date')
-        ->get();
+        //Que las fechas se muestren los datos no mayor a cinco días
+        //Se necesita extraer la fecha para la condicional
+        //Hacer consulta SQL para sacar los tickets de cada fecha
+        //Agruparlos para la vista
+        //Agruparlos correctamente bueno mostrarlos pues
+        // $tickets_open = DB::table('ticket_reports')
+        // ->whereBetween('date',[ 'DATEADD(day, -7, NOW())', ' NOW()'])
+        
+        // $tickets_close = DB::table('ticket_reports')
+        // ->selectRaw('DATE(updated_at) AS date')
+        $fresh_tickets = DB::select("SELECT * FROM ticket_reports WHERE updated_at BETWEEN DATE_SUB(CURDATE(),INTERVAL 10 DAY) AND CURDATE()");
 
-        $tickets_close = DB::table('ticket_reports')
-        ->selectRaw('DATE(updated_at) AS date')
-        ->selectRaw('COUNT(type) AS Close')
-        ->whereType('Cerrado')
-        ->groupBy('updated_at')
-        ->get();
-        //dd($tickets_close, $tickets_open);
+        // $tickets_open = DB::select('SELECT DATE_SUB(CURDATE(), INTERVAL 10 DAY)');
+        // ['Fecha', 'Abierto', 'Cerrado'],
+        
+        // dd($tickets_open);
+
+        return view('tickets.panel', ['fresh_tickets' => $fresh_tickets ]);
+
 //Proximos cambios: Auxilio
-        $panel_data = new PanelData();
-
-        $paneldata[0]->date = $tickets_open->date;
-        $paneldata[0]->open = $tickets_open->type;
-        $paneldata[0]->date = $tickets_close->date;
-        $paneldata[0]->close = $tickets_close->type;
-
-        $paneldata->save(); 
         
 
     }
